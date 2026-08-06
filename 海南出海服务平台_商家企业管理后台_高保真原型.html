@@ -95,6 +95,12 @@ table{border-collapse:collapse;width:100%}
 .btn[disabled],.btn.is-disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
 .lnk{color:var(--c-primary);font-weight:600;cursor:pointer;transition:color var(--t-fast)}
 .lnk:hover{color:var(--c-primary-hover);text-decoration:underline}
+.link-blue{color:var(--c-info);font-weight:600;cursor:pointer;border-bottom:1px dashed var(--c-info);transition:color var(--t-fast)}
+.link-blue:hover{color:#024b73}
+.minor-langs{margin-top:10px;padding:12px 14px;background:var(--c-info-soft);border:1px solid #cfe4f5;border-radius:var(--r-sm);max-width:600px}
+.minor-langs .ml-cap{font-size:12.5px;color:var(--c-info);font-weight:600;margin-bottom:8px}
+.minor-langs .ml-chips{display:flex;flex-wrap:wrap;gap:8px}
+.minor-langs .ml-chips span{font-size:12.5px;padding:4px 10px;background:#fff;border:1px solid #d6e6f3;border-radius:999px;color:var(--c-fg-2)}
 .lnk-quiet{color:var(--c-fg-2);cursor:pointer;transition:color var(--t-fast)}
 .lnk-quiet:hover{color:var(--c-primary)}
 
@@ -1322,7 +1328,6 @@ textarea.inp{height:auto;min-height:96px;padding:10px 12px;resize:vertical;line-
             <p>维护企业基本信息与中英文介绍，内容将展示在买家门户的企业详情页。带 <b style="color:var(--c-danger)">*</b> 为必填项。</p></div>
           <div class="ph-acts">
             <button class="btn btn-ghost" onclick="openModal('mShare')"><svg class="ic ic-16"><use href="#i-share"/></svg>生成企业分享链接</button>
-            <button class="btn btn-quiet" onclick="toast('info','已在买家门户预览企业主页')"><svg class="ic ic-16"><use href="#i-eye"/></svg>预览</button>
             <button class="btn btn-primary" onclick="toast('ok','企业信息已保存','部分字段修改需运营复审')"><svg class="ic ic-16"><use href="#i-save"/></svg><span data-i18n="btn.save">保存</span></button>
           </div>
         </div>
@@ -1752,7 +1757,13 @@ textarea.inp{height:auto;min-height:96px;padding:10px 12px;resize:vertical;line-
           <div style="display:flex;align-items:flex-start;gap:13px">
             <button class="tb-btn" onclick="go('prod-list')" title="返回产品列表" style="margin-top:2px"><svg class="ic"><use href="#i-left"/></svg></button>
             <div><h1 id="prodEditTitle" data-i18n="prod.edit">发布产品</h1>
-              <p>支持中英文双语录入，中文填写完成后可一键自动翻译并人工校对。提交审核后、运营处理前可随时撤回。</p></div>
+              <p>支持中英文双语录入，中文填写完成后可一键自动翻译并人工校对。<a class="link-blue" role="button" tabindex="0" onclick="toggleMinorLangs(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleMinorLangs(event)}">小语种</a>采用机器翻译后实时展示，无需维护。</p>
+              <div class="minor-langs" id="minorLangs" hidden>
+                <div class="ml-cap">已支持的小语种（机器翻译实时展示，无需人工维护）</div>
+                <div class="ml-chips">
+                  <span>西班牙语</span><span>葡萄牙语</span><span>阿拉伯语</span><span>俄语</span><span>法语</span><span>德语</span><span>日语</span><span>韩语</span><span>泰语</span><span>越南语</span><span>印尼语</span><span>土耳其语</span><span>意大利语</span><span>波兰语</span><span>荷兰语</span>
+                </div>
+              </div></div>
           </div>
           <div class="ph-acts">
             <span class="badge badge-muted" id="prodEditState"><span class="dot"></span>草稿 · 自动保存于 15:41</span>
@@ -3092,6 +3103,7 @@ Chen Zhiyuan · Hainan Coco Rhythm Food Technology Co., Ltd.</textarea></div>
      ========================================================= */
   function openModal(id){ var m=$(id); if(m) m.classList.add('open'); }
   function closeModal(id){ var m=$(id); if(m) m.classList.remove('open'); }
+  function toggleMinorLangs(e){ if(e&&e.stopPropagation){e.stopPropagation();} var el=document.getElementById('minorLangs'); if(el){el.hidden=!el.hidden;} }
 
   /* =========================================================
      5. Toast
@@ -3665,7 +3677,7 @@ Chen Zhiyuan · Hainan Coco Rhythm Food Technology Co., Ltd.</textarea></div>
   window.go=go; window.goAuth=goAuth; window.doLogin=doLogin; window.logout=logout;
   window.toggleSidebar=toggleSidebar; window.toggleGroup=toggleGroup;
   window.dd=dd; window.closeDDs=closeDDs; window.readAll=readAll; window.readAllMsg=readAllMsg;
-  window.openModal=openModal; window.closeModal=closeModal; window.toast=toast;
+  window.openModal=openModal; window.closeModal=closeModal; window.toast=toast; window.toggleMinorLangs=toggleMinorLangs;
   window.segPick=segPick; window.prodTab=prodTab; window.pickTpl=pickTpl; window.useTpl=useTpl;
   window.pickRole=pickRole; window.catToggle=catToggle; window.bilingual=bilingual; window.autoTranslate=autoTranslate;
   window.prodFilter=prodFilter; window.renderProd=renderProd; window.sortProd=sortProd; window.resetProd=resetProd;
