@@ -670,6 +670,20 @@ textarea.inp{height:auto;min-height:96px;padding:10px 12px;resize:vertical;line-
 /* 补充 badge */
 .badge-gold{background:var(--c-accent-soft);color:var(--c-accent)}
 .badge-soft{background:var(--c-bg-2);color:var(--c-fg-2)}
+
+/* ===== 数据看板：紧凑连续布局 ===== */
+#v-analytics .grid.g2{align-items:stretch}
+#v-analytics .grid.g2 > .card{display:flex;flex-direction:column}
+#v-analytics .grid.g2 > .card > .card-bd{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+#v-analytics .ana-donut{display:flex;align-items:center;justify-content:center;align-content:center;gap:20px;flex-wrap:wrap}
+#v-analytics .ana-inq{display:flex;flex-direction:column;justify-content:center;gap:14px}
+#v-analytics .ana-inq-top{display:flex;align-items:center;justify-content:center;align-content:center;gap:20px;flex-wrap:wrap}
+#v-analytics #chartSource,
+#v-analytics #chartInqType{flex:0 0 auto;width:200px}
+#v-analytics #chartSource svg,
+#v-analytics #chartInqType svg{width:100%;height:auto}
+#v-analytics #chartTrend svg,
+#v-analytics #chartVisitor svg{width:100%;height:auto}
 </style>
 <style>
 .apage{display:none}
@@ -2347,52 +2361,51 @@ textarea.inp{height:auto;min-height:96px;padding:10px 12px;resize:vertical;line-
             <div class="kd">行业平均 0.82%<span class="up" style="margin-left:6px">领先 33%</span></div></div>
         </div>
 
-        <div class="grid" style="grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);align-items:start;margin-bottom:18px">
-          <div class="card">
-            <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-trend"/></svg>访客与询盘趋势</h3>
-              <div class="legend"><span><i style="background:#0F766E"></i>访客 UV</span>
-                <span><i style="background:#B45309"></i>询盘数</span></div></div>
-            <div class="card-bd"><div id="chartTrend"></div></div>
-          </div>
+        <div class="card" style="margin-bottom:18px">
+          <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-trend"/></svg>访客与询盘趋势</h3>
+            <div class="legend"><span><i style="background:#0F766E"></i>访客 UV</span>
+              <span><i style="background:#B45309"></i>询盘数</span></div></div>
+          <div class="card-bd"><div id="chartTrend"></div></div>
+        </div>
+
+        <div class="grid g2" style="margin-bottom:18px">
           <div class="card">
             <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-pie"/></svg>流量来源渠道</h3></div>
-            <div class="card-bd">
-              <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-                <div id="chartSource"></div>
-                <div class="legend" style="flex-direction:column;gap:11px;flex:1;min-width:160px">
-                  <span><i style="background:#0F766E"></i>自然搜索 <b style="margin-left:auto">42%</b></span>
-                  <span><i style="background:#14B8A6"></i>平台推荐 <b style="margin-left:auto">26%</b></span>
-                  <span><i style="background:#B45309"></i>分享链接 <b style="margin-left:auto">18%</b></span>
-                  <span><i style="background:#0369A1"></i>直接访问 <b style="margin-left:auto">9%</b></span>
-                  <span><i style="background:#C3D5D3"></i>其他 <b style="margin-left:auto">5%</b></span>
-                </div>
+            <div class="card-bd ana-donut">
+              <div id="chartSource"></div>
+              <div class="legend" style="flex-direction:column;gap:11px;flex:0 0 auto">
+                <span><i style="background:#0F766E"></i>自然搜索 <b style="margin-left:auto">42%</b></span>
+                <span><i style="background:#14B8A6"></i>平台推荐 <b style="margin-left:auto">26%</b></span>
+                <span><i style="background:#B45309"></i>分享链接 <b style="margin-left:auto">18%</b></span>
+                <span><i style="background:#0369A1"></i>直接访问 <b style="margin-left:auto">9%</b></span>
+                <span><i style="background:#C3D5D3"></i>其他 <b style="margin-left:auto">5%</b></span>
               </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-pie"/></svg>询盘类型分布</h3></div>
+            <div class="card-bd ana-inq">
+              <div class="ana-inq-top">
+                <div id="chartInqType"></div>
+                <div class="legend" style="flex-direction:column;gap:11px;flex:0 0 auto">
+                  <span><i style="background:#B45309"></i>产品询盘 68（72%）</span>
+                  <span><i style="background:#0F766E"></i>企业询盘 26（28%）</span></div>
+              </div>
+              <div class="note note-primary" style="width:100%"><svg class="ic ic-16"><use href="#i-info"/></svg>
+                <div>产品询盘转化率为 <b>11.8%</b>，显著高于企业询盘的 <b>3.8%</b>，建议优先跟进。</div></div>
             </div>
           </div>
         </div>
 
-        <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);align-items:start;margin-bottom:18px">
+        <div class="grid g2" style="margin-bottom:18px">
           <div class="card">
             <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-accent)"><use href="#i-star"/></svg>产品浏览排行</h3>
               <span class="sub">TOP 6</span></div>
-            <div class="card-bd" id="rankAna" style="padding-top:12px"></div>
+            <div class="card-bd" id="rankAna"></div>
           </div>
           <div class="card">
             <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-flag"/></svg>询盘来源国家</h3></div>
             <div class="card-bd"><div id="chartCountry"></div></div>
-          </div>
-          <div class="card">
-            <div class="card-hd"><h3><svg class="ic ic-18" style="color:var(--c-primary)"><use href="#i-pie"/></svg>询盘类型分布</h3></div>
-            <div class="card-bd">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:14px">
-                <div id="chartInqType"></div>
-                <div class="legend">
-                  <span><i style="background:#B45309"></i>产品询盘 68（72%）</span>
-                  <span><i style="background:#0F766E"></i>企业询盘 26（28%）</span></div>
-                <div class="note note-primary" style="width:100%"><svg class="ic ic-16"><use href="#i-info"/></svg>
-                  <div>产品询盘转化率为 <b>11.8%</b>，显著高于企业询盘的 <b>3.8%</b>，建议优先跟进。</div></div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -3515,16 +3528,16 @@ Chen Zhiyuan · Hainan Coco Rhythm Food Technology Co., Ltd.</textarea></div>
   /* ---------- 数据看板图表 ---------- */
   function renderAnalyticsCharts(){
     var trend=$('chartTrend'); if(trend){
-      trend.innerHTML = lineSVG(640,230,30,
+      trend.innerHTML = lineSVG(1200,320,42,
         [{color:C.primary, vals:[1180,1320,980,1410,1560,1620,1780]},
          {color:C.gold, vals:[8,12,9,14,11,16,18]}],
         ['08-04','08-05','08-06','08-07','08-08','08-09','08-10'], {area:true});
     }
     var src=$('chartSource'); if(src){
-      src.innerHTML = donutSVG(150,150,56,18,[
+      src.innerHTML = donutSVG(100,100,40,12,[
         {value:42,color:C.primary,label:'自然搜索'},{value:26,color:C.teal,label:'平台推荐'},
         {value:18,color:C.gold,label:'分享链接'},{value:9,color:C.blue,label:'直接访问'},{value:5,color:C.muted,label:'其他'}
-      ], true);
+      ], false);
     }
     barsHTML('rankAna', [
       {label:'冷压初榨椰子油 500ml', value:12840},
@@ -3543,12 +3556,12 @@ Chen Zhiyuan · Hainan Coco Rhythm Food Technology Co., Ltd.</textarea></div>
       {label:'🇮🇩 印尼', value:690}
     ], 'fill-blue');
     var itype=$('chartInqType'); if(itype){
-      itype.innerHTML = donutSVG(150,150,56,18,[
+      itype.innerHTML = donutSVG(100,100,40,12,[
         {value:58,color:C.primary,label:'产品询盘'},{value:27,color:C.gold,label:'企业合作'},{value:15,color:C.teal,label:'其他'}
-      ], true);
+      ], false);
     }
     var vis=$('chartVisitor'); if(vis){
-      vis.innerHTML = lineSVG(560,150,24,
+      vis.innerHTML = lineSVG(760,200,32,
         [{color:C.teal, vals:[620,710,680,820,900,880,1020,1100,1240,1180,1340,1420]}],
         ['1','2','3','4','5','6','7','8','9','10','11','12'], {area:true});
     }
